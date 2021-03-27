@@ -6,9 +6,8 @@ import java.util.*;
 import java.util.LinkedList;
 
 class MaxFlow {
-     static int V = 4; // Number of vertices in graph
-
-     static int [][] data;
+    static int V ; // Number of vertices in graph
+    static int [][]data;
 
     /* Returns true if there is a path from source 's' to
     sink 't' in residual graph. Also fills parent[] to
@@ -23,8 +22,7 @@ class MaxFlow {
 
         // Create a queue, enqueue source vertex and mark
         // source vertex as visited
-        LinkedList<Integer> queue
-                = new LinkedList<Integer>();
+        LinkedList<Integer> queue = new LinkedList<Integer>();
         queue.add(s);
         visited[s] = true;
         parent[s] = -1;
@@ -90,8 +88,7 @@ class MaxFlow {
             int path_flow = Integer.MAX_VALUE;
             for (v = t; v != s; v = parent[v]) {
                 u = parent[v];
-                path_flow
-                        = Math.min(path_flow, rGraph[u][v]);
+                path_flow = Math.min(path_flow, rGraph[u][v]);
             }
 
             // update residual capacities of the edges and
@@ -111,7 +108,7 @@ class MaxFlow {
     }
 
     public static void getDataset() throws FileNotFoundException{
-        File file = new File("Data set/ladder_1.txt");
+        File file = new File("Data set/ladder_9.txt");
         Scanner scanner = new Scanner(file);
         String[] capArray = scanner.nextLine().split(" ");
         V = Integer.parseInt(capArray[0]);
@@ -127,17 +124,23 @@ class MaxFlow {
     }
 
     // Driver program to test above functions
-    public static void main(String[] args)
-            throws java.lang.Exception
+    public static void main(String[] args) throws java.lang.Exception
     {
-        // Let us create a graph shown in the above example
-
+        double []averageTime = new double[3];
         MaxFlow m = new MaxFlow();
-        getDataset();
         Stopwatch stopwatch = new Stopwatch();
 
-        System.out.println("The maximum possible flow is " + m.fordFulkerson(data, 0, 5));
+        getDataset();
+        System.out.println("The maximum possible flow is " + m.fordFulkerson(data, 0, 1535));
+        for(int i =1; i<=3;i++){
+            System.out.println("Time "+i+" : "+stopwatch.elapsedTime());
+            averageTime[i-1]= stopwatch.elapsedTime();
+        }
+        double a = averageTime[0];
+        double b = averageTime[1];
+        double c = averageTime[2];
+        double average = (a+b+c)/3;
+        System.out.println("\nAverage Time: "+average);
 
-        System.out.println("Time: "+stopwatch.elapsedTime());
     }
 }
