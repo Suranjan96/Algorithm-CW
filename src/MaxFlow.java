@@ -6,8 +6,7 @@ import java.util.*;
 import java.util.LinkedList;
 
 class MaxFlow {
-    static int V ; // Number of vertices in graph
-    static int [][]data;
+   static Graph graph;
 
     /* Returns true if there is a path from source 's' to
     sink 't' in residual graph. Also fills parent[] to
@@ -16,8 +15,8 @@ class MaxFlow {
     {
         // Create a visited array and mark all vertices as
         // not visited
-        boolean visited[] = new boolean[V];
-        for (int i = 0; i < V; ++i)
+        boolean visited[] = new boolean[graph.getNumOfNode()];
+        for (int i = 0; i < graph.getNumOfNode(); ++i)
             visited[i] = false;
 
         // Create a queue, enqueue source vertex and mark
@@ -31,7 +30,7 @@ class MaxFlow {
         while (queue.size() != 0) {
             int u = queue.poll();
 
-            for (int v = 0; v < V; v++) {
+            for (int v = 0; v < graph.getNumOfNode(); v++) {
                 if (visited[v] == false
                         && rGraph[u][v] > 0) {
                     // If we find a connection to the sink
@@ -68,14 +67,14 @@ class MaxFlow {
         // residual capacity of edge from i to j (if there
         // is an edge. If rGraph[i][j] is 0, then there is
         // not)
-        int rGraph[][] = new int[V][V];
+        int rGraph[][] = new int[MaxFlow.graph.getNumOfNode()][MaxFlow.graph.getNumOfNode()];
 
-        for (u = 0; u < V; u++)
-            for (v = 0; v < V; v++)
+        for (u = 0; u < MaxFlow.graph.getNumOfNode(); u++)
+            for (v = 0; v < MaxFlow.graph.getNumOfNode(); v++)
                 rGraph[u][v] = graph[u][v];
 
         // This array is filled by BFS and to store path
-        int parent[] = new int[V];
+        int parent[] = new int[MaxFlow.graph.getNumOfNode()];
 
         int max_flow = 0; // There is no flow initially
 
@@ -111,15 +110,15 @@ class MaxFlow {
         File file = new File("Data set/ladder_9.txt");
         Scanner scanner = new Scanner(file);
         String[] capArray = scanner.nextLine().split(" ");
-        V = Integer.parseInt(capArray[0]);
-        data = new int[V][V];
+        int numOfNode = Integer.parseInt(capArray[0]);
+        graph = new Graph(numOfNode);
 
         while (scanner.hasNextLine()){
             String[] array = scanner.nextLine().split(" ");
             int u = Integer.parseInt(array[0]);
             int v = Integer.parseInt(array[1]);
             int cap = Integer.parseInt(array[2]);
-            data[u][v] = cap;
+           graph.addEdges(u,v,cap);
         }
     }
 
@@ -131,7 +130,7 @@ class MaxFlow {
         Stopwatch stopwatch = new Stopwatch();
 
         getDataset();
-        System.out.println("The maximum possible flow is " + m.fordFulkerson(data, 0, 1535));
+        System.out.println("The maximum possible flow is " + m.fordFulkerson(graph.getAddMatrix(), 0, graph.getNumOfNode()-1));
         for(int i =1; i<=3;i++){
             System.out.println("Time "+i+" : "+stopwatch.elapsedTime());
             averageTime[i-1]= stopwatch.elapsedTime();
