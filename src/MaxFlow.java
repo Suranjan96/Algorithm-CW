@@ -19,11 +19,7 @@ class MaxFlow {
         while (queue.size() != 0) {                                         // Standard BFS Loop
             int u = queue.poll();
             for (int v = 0; v < graph.getNumOfNode(); v++) {
-                if (visited[v] == false && rGraph[u][v] > 0) {
-                    // If we find a connection to the sink
-                    // node, then there is no point in BFS
-                    // anymore We just have to set its parent
-                    // and can return true
+                if (visited[v] == false && rGraph[u][v] > 0) {              // If we find a connection to the sink node, then there is no point in BFS anymore We just have to set its parent and can return true
                     if (v == t) {
                         parent[v] = u;
                         return true;
@@ -34,12 +30,11 @@ class MaxFlow {
                 }
             }
         }
-        return false;                               // We didn't reach sink in BFS starting from source, so return false
-    }                               // Returns tne maximum flow from s to t in the given graph
+        return false;                                                    // We didn't reach sink in BFS starting from source, so return false
+    }                                                                     // Returns tne maximum flow from s to t in the given graph
 
-    int fordFulkerson(int graph[][], int s, int t)
-    {
-        int u, v;                   // Create a residual graph and fill the residual graph with given capacities in the original graph as residual capacities in residual graph
+    int fordFulkerson(int graph[][], int s, int t) {
+        int u, v;                                                       // Create a residual graph and fill the residual graph with given capacities in the original graph as residual capacities in residual graph
         int rGraph[][] = new int[MaxFlow.graph.getNumOfNode()][MaxFlow.graph.getNumOfNode()];           // Residual graph where rGraph[i][j] indicates residual capacity of edge from i to j (if there is an edge. If rGraph[i][j] is 0, then there is not)
 
         for (u = 0; u < MaxFlow.graph.getNumOfNode(); u++)
@@ -67,7 +62,7 @@ class MaxFlow {
     }
 
     public static void getDataset() throws FileNotFoundException{
-        File file = new File("Data set/ladder_9.txt");          //read the file
+        File file = new File("Data set/ladder_3.txt");          //read the file
         Scanner scanner = new Scanner(file);
         String[] capArray = scanner.nextLine().split(" ");          //add all data in to string array and check the first element
         int numOfNode = Integer.parseInt(capArray[0]);
@@ -81,6 +76,8 @@ class MaxFlow {
            graph.addEdges(u,v,cap);
         }
     }
+
+
 
     public static void main(String[] args) throws java.lang.Exception {             // Driver program to test above functions
         double []averageTime = new double[3];           //double array to get average time
@@ -98,5 +95,7 @@ class MaxFlow {
         double c = averageTime[2];
         double average = (a+b+c)/3;
         System.out.println("\nAverage Time: "+average);
+
+        graph.printArray();
     }
 }
