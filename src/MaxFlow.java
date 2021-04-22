@@ -62,7 +62,7 @@ class MaxFlow {
     }
 
     public static void getDataset() throws FileNotFoundException{
-        File file = new File("Data set/ladder_3.txt");          //read the file
+        File file = new File("Data set/ladder_1.txt");          //read the file
         Scanner scanner = new Scanner(file);
         String[] capArray = scanner.nextLine().split(" ");          //add all data in to string array and check the first element
         int numOfNode = Integer.parseInt(capArray[0]);

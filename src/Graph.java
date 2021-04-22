@@ -35,7 +35,7 @@ public class Graph {
         return addMatrix[startNode][startNode];
     }
 
-    public  void printArray(){
+    public  void printArray(){             //display the matrix
         System.out.println("Matrix");
         for (int i =0;i<getNumOfNode();i++){
             for (int j = 0;j<getNumOfNode();j++){
