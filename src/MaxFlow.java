@@ -3,7 +3,7 @@ import java.lang.*;
 import java.util.*;
 import java.util.LinkedList;
 
-class MaxFlow {
+class MaxFlow {                                                 //https://www.geeksforgeeks.org/ford-fulkerson-algorithm-for-maximum-flow-problem/
    static Graph graph;
 
    boolean bfs(int rGraph[][], int s, int t, int parent[]) {
@@ -14,7 +14,7 @@ class MaxFlow {
         LinkedList<Integer> queue = new LinkedList<Integer>();              // Create a queue, enqueue source vertex and mark
         queue.add(s);                                                       // source vertex as visited
         visited[s] = true;
-        parent[s] = -1;
+        parent[s] = -1;    //TODO
 
         while (queue.size() != 0) {                                         // Standard BFS Loop
             int u = queue.poll();
