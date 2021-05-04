@@ -39,22 +39,22 @@ class MaxFlow {                                                 //https://www.ge
 
         for (u = 0; u < MaxFlow.graph.getNumOfNode(); u++)
             for (v = 0; v < MaxFlow.graph.getNumOfNode(); v++)
-                rGraph[u][v] = graph[u][v];
+                rGraph[u][v] = graph[u][v];                 //store the graph capacities
 
             int parent[] = new int[MaxFlow.graph.getNumOfNode()];           // This array is filled by BFS and to store path
         int max_flow = 0;                                                   // There is no flow initially
 
         while (bfs(rGraph, s, t, parent)) {                                 // Augment the flow while there is path from source to sink
             int path_flow = Integer.MAX_VALUE;                      // Find minimum residual capacity of the edges along the path filled by BFS. Or we can say find the maximum flow through the path found.
-            for (v = t; v != s; v = parent[v]) {
+            for (v = t; v != s; v = parent[v]) {                    //when v=0 stop the loop
                 u = parent[v];
                 path_flow = Math.min(path_flow, rGraph[u][v]);
             }
 
             for (v = t; v != s; v = parent[v]) {                // update residual capacities of the edges and reverse edges along the path
                 u = parent[v];
-                rGraph[u][v] -= path_flow;
-                rGraph[v][u] += path_flow;
+                rGraph[u][v] -= path_flow;                      //min the path cap
+                rGraph[v][u] += path_flow;                      //add the path cap
 
             }
             System.out.println("Augmenting Path "+ path_flow);
@@ -65,7 +65,7 @@ class MaxFlow {                                                 //https://www.ge
 
     public static void getDataset(){
        try{
-           File file = new File("Data set/test1.txt");          //read the file
+           File file = new File("Data set/ladder_1.txt");          //read the file
            Scanner scanner = new Scanner(file);
            String[] capArray = scanner.nextLine().split(" ");          //add all data in to string array and check the first element
            int numOfNode = Integer.parseInt(capArray[0]);
