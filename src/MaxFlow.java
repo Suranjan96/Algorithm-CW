@@ -90,11 +90,14 @@ class MaxFlow {                                                 //https://www.ge
         Stopwatch stopwatch = new Stopwatch();
 
         getDataset();
-        System.out.println("\n"+"The maximum possible flow is " + m.fordFulkerson(graph.getAddMatrix(), 0, graph.getNumOfNode()-1));
-        for(int i =1; i<=3;i++){
-            System.out.println("Time "+i+" : "+stopwatch.elapsedTime());
-            averageTime[i-1]= stopwatch.elapsedTime();
-        }
+        try{
+            System.out.println("\n"+"The maximum possible flow is " + m.fordFulkerson(graph.getAddMatrix(), 0, graph.getNumOfNode()-1));
+            for(int i =1; i<=3;i++){
+                System.out.println("Time "+i+" : "+stopwatch.elapsedTime());
+                averageTime[i-1]= stopwatch.elapsedTime();
+            }
+
+
         double a = averageTime[0];                  //calculate the average time
         double b = averageTime[1];
         double c = averageTime[2];
@@ -102,5 +105,9 @@ class MaxFlow {                                                 //https://www.ge
         System.out.println("\nAverage Time: "+average);
 
         graph.printArray();
+
+        }catch (NullPointerException e){
+            System.out.println("");
+        }
     }
 }
